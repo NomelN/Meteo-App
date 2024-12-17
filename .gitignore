@@ -1,0 +1,4 @@
+.env/
+Application/__pycache__/
+Application/migrations/
+MeteoApp/__pycache__/
