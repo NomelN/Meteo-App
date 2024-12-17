@@ -1,10 +1,12 @@
 from django.shortcuts import render
 import requests
 import datetime
+from MeteoApp import settings
+
 
 # Create your views here.
 def index(request):
-    API_KEY = open("C:\\Users\\akpan\\Desktop\\Projets_personnels\\API_KEY.txt", "r").read()
+    API_KEY = settings.METEO_API_KEY
     current_weather_url = f'https://api.openweathermap.org/data/2.5/weather?q={{}}&appid={API_KEY}'
     forecast_url = f'https://api.openweathermap.org/data/3.0/onecall?lat={{lat}}&lon={{lon}}&exclude=current,minutely,hourly,alerts&appid={API_KEY}'
     
@@ -35,7 +37,7 @@ def fetch_weather_and_forecast(city, api_key, current_weather_url, forecast_url)
     
         response = requests.get(current_weather_url.format(city, api_key)).json()
         
-        lat, lon = response["coord"]['lat'], response["coord"]['lon']
+        lat, lon = response['coord']['lat'], response['coord']['lon']
         
         forecast_response = requests.get(forecast_url.format(lat=lat, lon=lon, api_key=api_key)).json()
 
